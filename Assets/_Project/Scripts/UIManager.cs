@@ -4,8 +4,22 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public GameObject PauseMenu;
-
     private bool isPaused = false;
+    AudioManager _audioManager;
+
+    private void Awake()
+    {
+        if (_audioManager == null) _audioManager = FindAnyObjectByType<AudioManager>();
+    }
+    private void Start()
+    {
+        _audioManager.PlayMusic("ThemeMenu");
+    }
+
+    public void PlayClickSound()
+    {
+        _audioManager.PlaySFX("MouseClickSound");
+    }
 
     private void Update()
     {
@@ -38,6 +52,8 @@ public class UIManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        _audioManager.StopAllAudioSource();
+
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);
     }
@@ -53,7 +69,7 @@ public class UIManager : MonoBehaviour
 #endif
         }
     }
-        public void SaveOptions()
+    public void SaveOptions()
     {
         Debug.Log("le opzioni sono state salvate !!!");
     }

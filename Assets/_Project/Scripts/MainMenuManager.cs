@@ -5,9 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    AudioManager _audioManager;
+
+    private void Awake()
+    {
+        if (_audioManager == null) _audioManager = FindAnyObjectByType<AudioManager>();
+    }
+
+    private void Start()
+    {
+        _audioManager.PlayMusic("ThemeMenu");
+    }
+
+    public void PlayClickSound()
+    {
+        _audioManager.PlaySFX("MouseClickSound");
+    }
 
     public void StartGame()
     {
+        _audioManager.StopAllAudioSource();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
